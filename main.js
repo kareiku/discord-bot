@@ -6,6 +6,7 @@ let reversed = false;
 client.once('ready', () => { console.log('Ready'); });
 client.on('messageCreate', (message) => {
     const answers = {
+        help: () => message.channel.send(Object.keys(this));
         ping: () => message.channel.send('Latency: ' + client.ws.ping + 'ms'),
         clear: (args) => message.channel.bulkDelete(parseInt(args) || 100),
         reverse: () => {
@@ -15,6 +16,8 @@ client.on('messageCreate', (message) => {
         say: (args) => {
             message.delete();
             message.channel.send(args || "nuh-uh");
+        },
+        about: (args) => {
         }
     };
     if (!message.author.bot && message.content.startsWith(prefix)) {
