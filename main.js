@@ -18,7 +18,7 @@ client.on('messageCreate', (message) => {
         if (typeof func === 'function') {
             func();
         } else {
-            console.error(`[WARN] [${new Date().toLocaleString('en-GB', { hour12: false }) }] [DiscordBot] - Undefined function found.`);
+            console.error(`[WARN] [${new Date().toLocaleString('en-GB', { hour12: false })}] [DiscordBot] - Undefined function found.`);
         }
         if (reversed) {
             message.channel.send(message.content.split('').reverse().join(''));
