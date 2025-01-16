@@ -16,6 +16,7 @@ client.on('messageCreate', (message) => {
                 reversed = !reversed;
                 break;
             }
+        }
     if (reversed) {
         message.channel.send(message.content.split('').reverse().join(''));
     }
