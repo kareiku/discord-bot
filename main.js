@@ -5,30 +5,20 @@ let reversed = false;
 
 client.once('ready', () => { console.log('Ready'); });
 client.on('messageCreate', (message) => {
-    /*const answers = {
-        'clear': this.clear(100);
-        'reverse': this.revese();
-        clear(count) {
-            message.channel.bulkDelete(count);
-        }
-        reverse() {
+    const answers = {
+        clear: () => message.channel.bulkDelete(100),
+        reverse: () => {
             message.delete();
             reversed = !reversed;
         }
-    };*/
+    };
 
     if (!message.author.bot && message.content.startsWith(prefix)) {
-        // answers[message.content];
-        switch (message.content) {
-            case 'clear': {
-                message.channel.bulkDelete(100);
-                break;
-            }
-            case 'reverse': {
-                message.delete();
-                reversed = !reversed;
-                break;
-            }
+        const func = answers[message.content];
+        if (typeof func === 'function') {
+            func();
+        } else {
+            console.error(`[WARN] [${new Date().toLocaleString('en-GB', { hour12: false }) }] [DiscordBot] - Undefined function found.`);
         }
         if (reversed) {
             message.channel.send(message.content.split('').reverse().join(''));
