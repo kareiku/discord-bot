@@ -15,9 +15,19 @@ client.on('messageCreate', (message) => {
         },
         say: (args) => {
             message.delete();
-            message.channel.send(args || "nuh-uh");
+            message.channel.send(args || "NUH-UH");
         },
         about: (args) => {
+            const user = message.mentions.users.first();
+            if (user) {
+                message.channel.send(
+                    'Username: ' + user.username + '\n' +
+                    'Tag: ' + user.tag + '\n' +
+                    user.displayAvatarURL({ format: 'png', dynamic: true, size: 512 })
+                );
+            } else {
+                message.channel.send('No user specified.');
+            }
         }
     };
     if (!message.author.bot && message.content.startsWith(prefix)) {
