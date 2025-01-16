@@ -6,17 +6,22 @@ let reversed = false;
 client.once('ready', () => { console.log('Ready'); });
 client.on('messageCreate', (message) => {
     const answers = {
-        clear: () => message.channel.bulkDelete(100),
+        ping: () => message.channel.send('Latency: ' + client.ws.ping + 'ms'),
+        clear: (args) => message.channel.bulkDelete(parseInt(args) || 100),
         reverse: () => {
             message.delete();
             reversed = !reversed;
+        },
+        say: (args) => {
+            message.delete();
+            message.channel.send(args || "nuh-uh");
         }
     };
-
     if (!message.author.bot && message.content.startsWith(prefix)) {
-        const func = answers[message.content];
+        const [ command, args ] = message.content.split(/\s+/, 2);
+        const func = answers[command];
         if (typeof func === 'function') {
-            func();
+            func(args);
         } else {
             console.error(`[WARN] [${new Date().toLocaleString('en-GB', { hour12: false })}] [DiscordBot] - Undefined function found.`);
         }
