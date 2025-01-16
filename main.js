@@ -1,4 +1,4 @@
-const { token, link, prefix } = require('./config.json');
+const { token, prefix } = require('./config.json');
 const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 let reversed = false;
