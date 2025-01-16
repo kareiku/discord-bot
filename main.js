@@ -5,8 +5,8 @@ let reversed = false;
 
 client.once('ready', () => { console.log('Ready'); });
 client.on('messageCreate', (message) => {
-    const answers = {
-        help: () => message.channel.send(Object.keys(this));
+    const commands = {
+        help: () => message.channel.send('Available commands: ' + Object.keys(commands).join(', ') + '.'),
         ping: () => message.channel.send('Latency: ' + client.ws.ping + 'ms'),
         clear: (args) => message.channel.bulkDelete(parseInt(args) || 100),
         reverse: () => {
@@ -22,7 +22,7 @@ client.on('messageCreate', (message) => {
     };
     if (!message.author.bot && message.content.startsWith(prefix)) {
         const [ command, args ] = message.content.split(/\s+/, 2);
-        const func = answers[command];
+        const func = commands[command];
         if (typeof func === 'function') {
             func(args);
         } else {
