@@ -30,9 +30,9 @@ client.on('messageCreate', (message) => {
                 break;
             }
         }
-    }
-    if (reversed) {
-        message.channel.send(message.content.split('').reverse().join(''));
+        if (reversed) {
+            message.channel.send(message.content.split('').reverse().join(''));
+        }
     }
 });
 
