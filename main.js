@@ -17,7 +17,7 @@ client.on('messageCreate', (message) => {
             message.delete();
             message.channel.send(args || "NUH-UH");
         },
-        about: (args) => {
+        about: () => {
             const user = message.mentions.users.first();
             if (user) {
                 message.channel.send(
