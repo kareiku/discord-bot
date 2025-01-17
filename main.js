@@ -3,7 +3,8 @@ const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 const commands = {
-    help: (message) => message.channel.send('Available commands: ' + Object.keys(commands).join(', ') + '.'),
+    what: () => console.log(this),
+    help: (message) => message.channel.send('Available commands: ' + Object.keys(commands).filter(key => typeof this.key === 'function').join(', ') + '.'),
     ping: (message) => message.channel.send('Latency: ' + client.ws.ping + 'ms'),
     clear: (message, args) => message.channel.bulkDelete(parseInt(args) || 100),
     reversed: false,
@@ -17,7 +18,11 @@ const commands = {
     },
     about: (message) => {
         const user = message.mentions.users.first();
-        message.channel.send(user ? `Username: ${user.id}\nTag: ${user.tag}\n${user.displayAvatarURL({ format: 'png', dynamic: true, size: 512 })}` : 'No user specified'); /* FIXME Change to nickname */
+        message.channel.send(user ?
+            `Display Name: ${user.displayName}\n` + 
+            `Server Nickname: ${message.guild.members.fetch(user.id)}\n` +
+            `Tag: ${user.tag}\n${user.displayAvatarURL({ format: 'png', dynamic: true, size: 512 })}`
+        : 'No user specified');
     }
 };
 
@@ -34,7 +39,7 @@ client.on('messageCreate', (message) => {
             logType = 'WARN';
             logMessage = 'Undefined function found.';
         }
-        /* FIXME Change to log file */ console.log(`[${logType}} [${new Date().toLocaleString('en-GB', { hour12: false })}] [Eri] - ${logMessage}`);
+        console.log(`[${logType}] [${new Date().toLocaleString('en-GB', { hour12: false })}] [Eri] - ${logMessage}`);
         if (commands.reversed) {
             message.channel.send(message.content.split('').reverse().join(''));
         }
