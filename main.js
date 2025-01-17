@@ -3,18 +3,17 @@ const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 const commands = {
-    what: () => console.log(this),
-    help: (message) => message.channel.send('Available commands: ' + Object.keys(commands).filter(key => typeof this.key === 'function').join(', ') + '.'),
+    help: (message) => message.channel.send('Available commands: ' + Object.keys(commands).filter(key => typeof commands[key] === 'function').join(', ') + '.'),
     ping: (message) => message.channel.send('Latency: ' + client.ws.ping + 'ms'),
     clear: (message, args) => message.channel.bulkDelete(parseInt(args) || 100),
     reversed: false,
     reverse: (message) => {
         message.delete();
-        this.reversed = !this.reversed;
+        commands.reversed = !commands.reversed;
     },
     say: (message, args) => {
         message.delete();
-        message.channel.send(args || "NUH-UH");
+        message.channel.send(args || 'NUH-UH');
     },
     about: (message) => {
         const user = message.mentions.users.first();
