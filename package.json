@@ -1,7 +1,7 @@
 {
   "name": "discord-bot",
   "version": "1.0.0",
-  "description": "Somewhat a Discord bot with what I decide to add or remove as time passes by. Along the lines of I'm-testing-my-skills-to-avoid-boredom or I've had a great idea to do some useless thing again, i.e. whatever I do is for fun.",
+  "description": "My Discord bot, Eri, written in discord.js v14.17.3. Offers various functionalities that I add whenever I feel like it.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/kareiku/discord-bot/issues"
   },
-  "homepage": "https://github.com/kareiku/discord-bot#readme",
-  "dependencies": {
-    "discord.js": "^14.17.3"
-  }
+  "homepage": "https://github.com/kareiku/discord-bot#readme"
 }
