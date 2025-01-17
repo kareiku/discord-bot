@@ -3,7 +3,6 @@ const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
 const fs = require('fs');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 const logFilePath = `${process.cwd()}/logs/${Date.now()}.log`;
-console.log(logFilePath);
 
 const commands = {
     help: (message) => message.channel.send(`Available commands: ${Object.keys(commands).filter(key => typeof commands[key] === 'function').join(', ')}.`),
@@ -33,7 +32,10 @@ const commands = {
     }
 };
 
-client.once('ready', () => console.log('Ready'));
+client.once('ready', () => {
+    console.log('Ready');
+    client.user.setPresence({ status: 'idle' });
+});
 client.on('messageCreate', (message) => {
     if (!message.author.bot) {
         let logType = 'INFO';
