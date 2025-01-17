@@ -1,6 +1,9 @@
 const { token, prefix } = require('./config.json');
 const { Client, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
+const fs = require('fs');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+const logFilePath = `${process.cwd()}/logs/${Date.now()}.log`;
+console.log(logFilePath);
 
 const commands = {
     help: (message) => message.channel.send(`Available commands: ${Object.keys(commands).filter(key => typeof commands[key] === 'function').join(', ')}.`),
@@ -48,7 +51,7 @@ client.on('messageCreate', (message) => {
                 logMessage = 'Undefined command.';
             }
         }
-        console.log(`[${logType}] [${new Date().toLocaleString('en-GB', { hour12: false })}] [Eri] - ${logMessage}`);
+        fs.appendFile(logFilePath, `[${logType}] [${new Date().toLocaleString('en-GB', { hour12: false })}] [Eri] - ${logMessage}\n`, () => {});
         if (commands.reversed) {
             message.channel.send(message.content.split('').reverse().join(''));
         }
