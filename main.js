@@ -27,14 +27,14 @@ client.on('messageCreate', (message) => {
         const [ command, args ] = message.content.split(/\s+/, 2);
         const func = commands[command];
         let logType = 'INFO';
-        let logType = `Executed ${command} with arguments ${args}.`;
+        let logMessage = `Executed ${command} with arguments ${args}.`;
         if (typeof func === 'function') {
             func(message, args);
         } else {
             logType = 'WARN';
             logMessage = 'Undefined function found.';
         }
-        /* FIXME Change to log file */ console.log(`[${logType} [${new Date().toLocaleString('en-GB', { hour12: false })}] [Eri] - ${logMessage}`);
+        /* FIXME Change to log file */ console.log(`[${logType}} [${new Date().toLocaleString('en-GB', { hour12: false })}] [Eri] - ${logMessage}`);
         if (commands.reversed) {
             message.channel.send(message.content.split('').reverse().join(''));
         }
